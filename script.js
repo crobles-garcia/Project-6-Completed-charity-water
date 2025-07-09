@@ -18,12 +18,28 @@ let isMuted = false;
 let currentTheme = 'rural';
 let currentDropInterval = 800;
 
+const difficultySelect = document.getElementById('difficulty');
+let difficulty = 'normal';
+
 // Start the game
 function startGame() {
   if (isPlaying) return;
   isPlaying = true;
-  score = 0;
-  timeLeft = 30;
+  // Get selected difficulty
+  difficulty = difficultySelect ? difficultySelect.value : 'normal';
+
+  // Set time and drop interval based on difficulty
+  if (difficulty === 'easy') {
+    timeLeft = 40;
+    currentDropInterval = 1000;
+  } else if (difficulty === 'hard') {
+    timeLeft = 20;
+    currentDropInterval = 400;
+  } else {
+    timeLeft = 30;
+    currentDropInterval = 800;
+  }
+
   updateStatus();
   messageBox.textContent = "Catch the water drops!";
   gameScreen.style.display = "block";
@@ -179,21 +195,32 @@ function activatePurifier() {
 }
 
 function setThemeAndDifficulty() {
+  if (difficulty === 'easy') {
+    currentDropInterval = 1000;
+  } else if (difficulty === 'hard') {
+    currentDropInterval = 400;
+  } else {
+    // Normal
+    if (timeLeft > 20) {
+      currentDropInterval = 800;
+    } else if (timeLeft > 10) {
+      currentDropInterval = 600;
+    } else {
+      currentDropInterval = 400;
+    }
+  }
   if (timeLeft > 20) {
     document.body.classList.add('rural');
     document.body.classList.remove('desert', 'storm');
     currentTheme = 'rural';
-    currentDropInterval = 800; // easy
   } else if (timeLeft > 10) {
     document.body.classList.add('desert');
     document.body.classList.remove('rural', 'storm');
     currentTheme = 'desert';
-    currentDropInterval = 600; // medium
   } else {
     document.body.classList.add('storm');
     document.body.classList.remove('rural', 'desert');
     currentTheme = 'storm';
-    currentDropInterval = 400; // hard/fast
   }
   // Restart drop interval with new speed
   clearInterval(dropInterval);
