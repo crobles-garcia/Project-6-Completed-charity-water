@@ -248,9 +248,19 @@ function endGame() {
   clearInterval(dropInterval);
   clearInterval(timerInterval);
   document.removeEventListener('keydown', movePlayer);
-  messageBox.textContent = `Game Over! You scored ${score} points.`;
-  bgMusic.pause();
-  bgMusic.currentTime = 0;
+
+  // Show "Times Up!" message with score
+  if (messageBox) {
+    messageBox.innerHTML = `
+      <span style="font-size:1.3em; color:#FFC907; font-weight:bold;">Times Up!</span><br>
+      <span style="font-size:1.1em; color:#FFF7E1;">Game Over! You scored <b>${score}</b> points.</span>
+    `;
+  }
+
+  if (bgMusic) {
+    bgMusic.pause();
+    bgMusic.currentTime = 0;
+  }
 
   // Confetti celebration!
   if (window.confetti) {

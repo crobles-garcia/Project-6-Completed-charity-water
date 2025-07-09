@@ -30,7 +30,7 @@
   <div id="factBox" class="message" style="background:#FEDBC1; color:#BF6C46; border-left:5px solid #FFC907; font-size:0.95em; margin-top:10px;">
   </div>
 
-  <div id="messageBox" class="message">Welcome to Water Quest! Catch falling water with your bucket.</div>
+  <div id="messageBox" class="message"></div>
 
   <div id="gameScreen" class="game-screen">
     <img src="https://cdn-icons-png.flaticon.com/512/414/414927.png" alt="clouds" class="cloud left">
@@ -45,6 +45,16 @@
   </div>
 
   <div id="statusBar" class="scoreboard">Time: 30 | Score: 0</div>
+
+  <!-- Difficulty mode selector placed above instructions -->
+  <div style="margin: 20px auto; max-width: 480px;">
+    <label for="difficulty" style="margin-right:8px; font-weight:bold; color:#003366;">Difficulty:</label>
+    <select id="difficulty" class="btn" style="width:auto;">
+      <option value="easy">Easy</option>
+      <option value="normal" selected>Normal</option>
+      <option value="hard">Hard</option>
+    </select>
+  </div>
 
   <div class="instructions">
     <strong>How to Play:</strong>
@@ -70,12 +80,5 @@
   </footer>
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-  <label for="difficulty" style="margin-right:8px;">Difficulty:</label>
-  <select id="difficulty" class="btn" style="width:auto;">
-    <option value="easy">Easy</option>
-    <option value="normal" selected>Normal</option>
-    <option value="hard">Hard</option>
-  </select>
 </body>
 </html>
