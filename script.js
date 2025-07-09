@@ -113,6 +113,12 @@ function spawnDrop() {
         if (dropType === 'bad') {
           score -= 10;
           messageBox.textContent = "Oh no! Bad water drop! -10";
+          // Play failure sound
+          const failureSound = document.getElementById('failureSound');
+          if (failureSound) {
+            failureSound.currentTime = 0;
+            failureSound.play();
+          }
         } else if (dropType === 'golden') {
           score += purifierActive ? 100 : 50;
           messageBox.textContent = "Golden Drop! +" + (purifierActive ? "100" : "50");
@@ -127,6 +133,26 @@ function spawnDrop() {
           messageBox.textContent = "Nice catch! +" + (purifierActive ? "20" : "10");
           catchSound.currentTime = 0;
           catchSound.play();
+
+          // Play water drop sound
+          const waterDropSound = document.getElementById('waterDropSound');
+          if (waterDropSound) {
+            waterDropSound.currentTime = 0;
+            waterDropSound.play();
+          }
+        }
+        // Play shine sound for bonus drops
+        if (
+          dropType === 'bonus' ||
+          dropType === 'golden' ||
+          dropType === 'clock' ||
+          dropType === 'purifier'
+        ) {
+          const shineSound = document.getElementById('shineSound');
+          if (shineSound) {
+            shineSound.currentTime = 0;
+            shineSound.play();
+          }
         }
         updateStatus();
         drop.remove();
@@ -206,6 +232,12 @@ function endGame() {
       spread: 80,
       origin: { y: 0.6 }
     });
+    // Play firework sound
+    const fireworkSound = document.getElementById('fireworkSound');
+    if (fireworkSound) {
+      fireworkSound.currentTime = 0;
+      fireworkSound.play();
+    }
   }
 }
 
@@ -259,3 +291,9 @@ setInterval(() => {
     factIndex++;
   }
 }, 5000);
+
+// Audio element for water drop sound
+const waterDropSound = document.createElement('audio');
+waterDropSound.id = 'waterDropSound';
+waterDropSound.src = 'music/water-drip-45622.mp3';
+document.body.appendChild(waterDropSound);
