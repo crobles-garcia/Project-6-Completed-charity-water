@@ -1,0 +1,196 @@
+.cloud {
+  position: absolute;
+  top: 0;
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 2;
+  filter: brightness(100%);
+}
+.cloud.left {
+  left: 10px;
+  width: 80px;
+}
+.cloud.right {
+  right: 10px;
+  width: 100px;
+}
+
+body {
+  background-color: #FFF7E1;
+  color: #1A1A1A;
+  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+body.rural {
+  background: url('https://cdn.pixabay.com/photo/2017/10/18/21/04/africa-2869266_1280.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+body.desert {
+  background: url('https://cdn.pixabay.com/photo/2016/11/29/09/32/africa-1867634_1280.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+body.storm {
+  background: url('https://cdn.pixabay.com/photo/2016/11/29/09/08/africa-1867384_1280.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+header {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-bottom: 2px solid #ddd;
+}
+.logo {
+  font-size: 2em;
+  font-weight: bold;
+  color: #FFC907; /* Brand yellow */
+}
+.subtitle {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+.message {
+  font-size: 1em;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #FFF7E1; /* Off white */
+  border-left: 5px solid #FFC907; /* Brand yellow */
+  color: #1A1A1A; /* Brand black */
+  display: block;
+  min-height: 40px;
+  max-width: 500px;
+}
+.btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #FFC907; /* Brand yellow */
+  color: #1A1A1A; /* Brand black */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #003366; /* Brand navy */
+  color: #FFF7E1; /* Off white for contrast */
+}
+.upgrades {
+  margin: 20px;
+}
+.upgrade-box {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: rgba(255,255,255,0.8);
+}
+.game-screen {
+  display: none;
+  position: relative;
+  width: 90vw;
+  max-width: 350px;
+  height: 60vw;
+  max-height: 300px;
+  min-width: 220px;
+  min-height: 180px;
+  margin: 20px auto;
+  background-color: rgba(208,232,242,0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+.player {
+  width: 12vw;
+  max-width: 40px;
+  height: 9vw;
+  max-height: 30px;
+  background-color: #003366; /* Brand navy */
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  border-radius: 0 0 10px 10px;
+}
+.water-drop {
+  width: 6vw;
+  max-width: 20px;
+  height: 9vw;
+  max-height: 30px;
+  background-color: #77A8BB; /* Sky blue */
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+}
+.instructions {
+  font-size: 1em;
+  margin: 20px auto;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-left: 5px solid #ffe58f;
+  max-width: 500px;
+}
+.scoreboard {
+  margin: 10px auto;
+  font-size: 1.1em;
+  font-weight: bold;
+  background: #FFF7E1; /* Off white */
+  color: #003366;      /* Navy */
+  padding: 5px 15px;
+  border-radius: 8px;
+  max-width: 300px;
+}
+footer {
+  margin-top: 20px;
+  font-size: 0.9em;
+  background-color: #FFF7E1;
+  color: #1A1A1A;
+  padding: 10px;
+}
+.water-drop.bad-drop {
+  background-color: #BF6C46 !important; /* Brown */
+  border: 2px solid #FDE0C1;
+}
+#touchControls {
+  display: none;
+}
+#touchControls .btn {
+  font-size: 2em;
+  padding: 16px 28px;
+  margin: 0 12px;
+}
+@media (pointer: coarse) {
+  #touchControls {
+    display: flex;
+  }
+}
+.bonus-drop {
+  border: 2px solid #FFC907;
+  box-shadow: 0 0 10px #FFC90788;
+}
+.golden-drop {
+  background: radial-gradient(circle, #FFF7E1 60%, #FFC907 100%);
+}
+.clock-drop {
+  background: radial-gradient(circle, #FEDBC1 70%, #77A8BB 100%);
+  border: 2px solid #77A8BB;
+}
+.purifier-drop {
+  background: radial-gradient(circle, #FFF7E1 60%, #CBCBCD 100%);
+  border: 2px solid #CBCBCD;
+}
+@keyframes bucket-wiggle {
+  0% { transform: rotate(0deg);}
+  20% { transform: rotate(-10deg);}
+  40% { transform: rotate(8deg);}
+  60% { transform: rotate(-6deg);}
+  80% { transform: rotate(4deg);}
+  100% { transform: rotate(0deg);}
+}
+
+.player.wiggle {
+  animation: bucket-wiggle 0.4s;
+}
+#muteBtn {
+  min-width: 90px;
+}

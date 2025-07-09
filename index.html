@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Quest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">❁ WATER QUEST</div>
+    <div class="subtitle">The Journey to Clean Water</div>
+    <button class="btn" onclick="startGame()">Start</button>
+    <button class="btn" onclick="window.location.reload()">Reset</button>
+    <button class="btn" id="muteBtn" style="margin-left:10px;">🔊 Mute</button>
+    <div style="font-size: 0.8em; margin-top: 10px; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+      <span style="display: flex; align-items: center;">
+        <strong>Inspired by charity: water</strong>
+        <img src="https://www.charitywater.org/favicon.ico" alt="charity: water logo" style="height: 20px; margin-left: 8px; vertical-align: middle;">
+      </span>
+      <a href="https://www.charitywater.org/home" target="_blank" style="color: #0077cc; text-decoration: underline; margin-top: 4px;">
+        Visit charity: water
+      </a>
+      <span style="margin-top: 8px; font-style: italic; color: #555;">
+        “1 in 10 people lack access to clean water...”
+      </span>
+    </div>
+  </header>
+
+  <div id="factBox" class="message" style="background:#FEDBC1; color:#BF6C46; border-left:5px solid #FFC907; font-size:0.95em; margin-top:10px;">
+  </div>
+
+  <div id="messageBox" class="message">Welcome to Water Quest! Catch falling water with your bucket.</div>
+
+  <div id="gameScreen" class="game-screen">
+    <img src="https://cdn-icons-png.flaticon.com/512/414/414927.png" alt="clouds" class="cloud left">
+    <img src="https://cdn-icons-png.flaticon.com/512/414/414927.png" alt="clouds" class="cloud right">
+    <div id="player" class="player"></div>
+  </div>
+
+  <!-- Touch controls for mobile devices -->
+  <div id="touchControls" style="display: flex; justify-content: center; margin: 10px;">
+    <button class="btn" id="leftBtn" aria-label="Move Left">⬅️</button>
+    <button class="btn" id="rightBtn" aria-label="Move Right">➡️</button>
+  </div>
+
+  <div id="statusBar" class="scoreboard">Time: 30 | Score: 0</div>
+
+  <div class="instructions">
+    <strong>How to Play:</strong>
+    <ul style="text-align: left; max-width: 480px; margin: 10px auto;">
+      <li>Press <strong>Start</strong> to begin the game</li>
+      <li>Use the <strong>Left (←)</strong> and <strong>Right (→)</strong> arrow keys to move the bucket on desktop</li>
+      <li>On touch devices, tap the <strong>⬅️</strong> and <strong>➡️</strong> buttons to move the bucket</li>
+      <li>Catch blue water drops to gain <strong>+10</strong> points</li>
+      <li>Avoid green drops! They deduct <strong>10</strong> points</li>
+      <li>You have 30 seconds to collect as much water as you can!</li>
+    </ul>
+  </div>
+
+  <audio id="catchSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_4c0f69779d.mp3"></audio>
+  <audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+
+  <button onclick="document.getElementById('bgMusic').play()">Play Music</button>
+
+  <footer>
+  </footer>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</body>
+</html>
