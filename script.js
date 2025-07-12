@@ -23,6 +23,10 @@ let currentDropInterval = 800;
 const difficultySelect = document.getElementById('difficulty');
 let difficulty = 'normal';
 
+// Milestones logic
+let milestones = [50, 100, 200];
+let milestonesReached = {};
+
 // Start the game
 function startGame() {
   if (isPlaying) return;
@@ -423,3 +427,32 @@ document.addEventListener('touchend', function() {
   isDragging = false;
   document.body.style.userSelect = '';
 }, {passive: false});
+
+// Show milestone messages
+function showMilestoneMessage(text) {
+  messageBox.textContent = text;
+  setTimeout(() => {
+    // Only clear if the message hasn't changed (avoid erasing other messages)
+    if (messageBox.textContent === text) messageBox.textContent = "";
+  }, 2000);
+}
+
+// Add score and check milestones
+function addScore(points) {
+  score += points;
+  updateStatus();
+
+  // Check for milestones
+  milestones.forEach(milestone => {
+    if (score >= milestone && !milestonesReached[milestone]) {
+      showMilestoneMessage(`🎉 Milestone: ${milestone} points!`);
+      milestonesReached[milestone] = true;
+    }
+  });
+}
+
+// Example of replacing direct score addition
+function onCatchWaterDrop() {
+  addScore(10);
+  // ...other logic...
+}
