@@ -5,6 +5,8 @@ let dropInterval, timerInterval;
 let isPlaying = false;
 let purifierActive = false;
 let purifierTimeout = null;
+let paused = false;
+let pausedState = {};
 
 const player = document.getElementById('player');
 const gameScreen = document.getElementById('gameScreen');
@@ -66,6 +68,7 @@ function startGame() {
 
 // Move player left/right
 function movePlayer(e) {
+  if (paused) return;
   const gameWidth = gameScreen.offsetWidth;
   const playerWidth = player.offsetWidth;
   const left = parseInt(player.style.left) || 0;
@@ -79,6 +82,7 @@ function movePlayer(e) {
 
 // Spawn a water drop
 function spawnDrop() {
+  if (paused) return;
   const gameWidth = gameScreen.offsetWidth;
   const drop = document.createElement('div');
   let dropType = 'normal';
@@ -334,3 +338,88 @@ const waterDropSound = document.createElement('audio');
 waterDropSound.id = 'waterDropSound';
 waterDropSound.src = 'music/water-drip-45622.mp3';
 document.body.appendChild(waterDropSound);
+
+// Pause game function
+function pauseGame() {
+  if (!isPlaying || paused) return;
+  paused = true;
+  clearInterval(dropInterval);
+  clearInterval(timerInterval);
+  pausedState.playerLeft = player.style.left;
+  messageBox.textContent = "Game Paused";
+  if (bgMusic) bgMusic.pause();
+}
+
+function resumeGame() {
+  if (!isPlaying || !paused) return;
+  paused = false;
+  player.style.left = pausedState.playerLeft || player.style.left;
+  setThemeAndDifficulty();
+  timerInterval = setInterval(updateTimer, 1000);
+  messageBox.textContent = "Game Resumed!";
+  if (bgMusic && !isMuted) bgMusic.play();
+}
+
+// Pause button logic
+const pauseBtn = document.getElementById('pauseBtn');
+if (pauseBtn) {
+  pauseBtn.addEventListener('click', () => {
+    if (!isPlaying) return;
+    if (!paused) {
+      pauseGame();
+      pauseBtn.textContent = '▶️ Resume';
+    } else {
+      resumeGame();
+      pauseBtn.textContent = '⏸️ Pause';
+    }
+  });
+}
+
+// --- Drag to move bucket with mouse ---
+let isDragging = false;
+let dragOffsetX = 0;
+
+player.addEventListener('mousedown', function(e) {
+  if (!isPlaying || paused) return;
+  isDragging = true;
+  // Calculate offset between mouse and left edge of player
+  const rect = player.getBoundingClientRect();
+  dragOffsetX = e.clientX - rect.left;
+  document.body.style.userSelect = 'none'; // Prevent text selection
+});
+
+document.addEventListener('mousemove', function(e) {
+  if (!isDragging || !isPlaying || paused) return;
+  const gameRect = gameScreen.getBoundingClientRect();
+  let newLeft = e.clientX - gameRect.left - dragOffsetX;
+  // Clamp within game area
+  newLeft = Math.max(0, Math.min(newLeft, gameScreen.offsetWidth - player.offsetWidth));
+  player.style.left = newLeft + 'px';
+});
+
+document.addEventListener('mouseup', function() {
+  isDragging = false;
+  document.body.style.userSelect = '';
+});
+
+// For touch devices (optional, for completeness)
+player.addEventListener('touchstart', function(e) {
+  if (!isPlaying || paused) return;
+  isDragging = true;
+  const rect = player.getBoundingClientRect();
+  dragOffsetX = e.touches[0].clientX - rect.left;
+  document.body.style.userSelect = 'none';
+}, {passive: false});
+
+document.addEventListener('touchmove', function(e) {
+  if (!isDragging || !isPlaying || paused) return;
+  const gameRect = gameScreen.getBoundingClientRect();
+  let newLeft = e.touches[0].clientX - gameRect.left - dragOffsetX;
+  newLeft = Math.max(0, Math.min(newLeft, gameScreen.offsetWidth - player.offsetWidth));
+  player.style.left = newLeft + 'px';
+}, {passive: false});
+
+document.addEventListener('touchend', function() {
+  isDragging = false;
+  document.body.style.userSelect = '';
+}, {passive: false});
